@@ -105,8 +105,7 @@
             panelGrid.Name = "panelGrid";
             panelGrid.Size = new Size(600, 600);
             panelGrid.TabIndex = 8;
-            panelGrid.Paint += panelGrid_Paint;
-            // 
+            //
             // Startmessage
             // 
             Startmessage.Location = new Point(630, 337);

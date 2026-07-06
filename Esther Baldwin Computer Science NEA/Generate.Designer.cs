@@ -166,7 +166,6 @@
             Controls.Add(panelGrid);
             Name = "Generate";
             Text = "Generate";
-            Load += Generate_Load;
             ResumeLayout(false);
         }
 

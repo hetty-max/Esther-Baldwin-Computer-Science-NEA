@@ -5,12 +5,8 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.Remoting;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Windows.Forms.AxHost;
 
 namespace Esther_Baldwin_Computer_Science_NEA
 {
@@ -133,11 +129,15 @@ namespace Esther_Baldwin_Computer_Science_NEA
 
         public bool validNewTrack(Square trackToAdd)
         {
+            return validNewTrack(trackToAdd.x, trackToAdd.y);
+        }
+
+        //same check as above but without needing a full Square instance for the candidate coordinates
+        public bool validNewTrack(int x, int y)
+        {
             // check the rowCounts
-            // check the colCounts	
+            // check the colCounts
             // of the trackToAdd (r,c)
-            int x = trackToAdd.x;
-            int y = trackToAdd.y;
             bool validTrack = (x >= 0) && (y >= 0);
             validTrack &= (x < gridSize) && (y < gridSize);
             validTrack &= (0 < rowCounts[y]);
@@ -182,9 +182,8 @@ namespace Esther_Baldwin_Computer_Science_NEA
             List<Tuple<int, int>> validNeighbours = new List<Tuple<int, int>>();
             // valid neighbours are in the grid and adding them does not exceed row/col counts
             foreach (Tuple<int, int> neighbour in NeighboursCurrent)
-            {// test square for the track 
-                Square trackToTest = new ExternalSquare(neighbour.Item1, neighbour.Item2, State.CreateState(0), gridSize);
-                if (!validNewTrack(trackToTest))
+            {
+                if (!validNewTrack(neighbour.Item1, neighbour.Item2))
                 {
                     continue;
                 }

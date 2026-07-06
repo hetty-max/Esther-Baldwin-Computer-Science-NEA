@@ -50,8 +50,7 @@
             difficultyDropDown.Name = "difficultyDropDown";
             difficultyDropDown.Size = new Size(182, 33);
             difficultyDropDown.TabIndex = 0;
-            difficultyDropDown.SelectedIndexChanged += difficultyDropDown_SelectedIndexChanged;
-            // 
+            //
             // generateblankGrid
             // 
             generateblankGrid.Location = new Point(664, 94);
@@ -68,8 +67,7 @@
             panelGrid.Name = "panelGrid";
             panelGrid.Size = new Size(600, 600);
             panelGrid.TabIndex = 2;
-            panelGrid.Paint += panelGrid_Paint;
-            // 
+            //
             // reset
             // 
             reset.Location = new Point(925, 586);
@@ -113,8 +111,7 @@
             invalid.Size = new Size(182, 31);
             invalid.TabIndex = 11;
             invalid.Text = "Invalid grid, try again.";
-            invalid.TextChanged += invalid_TextChanged;
-            // 
+            //
             // problemview
             // 
             problemview.Location = new Point(664, 274);
@@ -174,7 +171,6 @@
             Controls.Add(difficultyDropDown);
             Name = "Set";
             Text = "Set";
-            Load += Set_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -184,7 +180,6 @@
         private ComboBox difficultyDropDown;
         private Button generateblankGrid;
         private Panel panelGrid;
-        private Button set;
         private Button reset;
         private Button finish;
         private TextBox Startmessage;

@@ -25,7 +25,7 @@ namespace Esther_Baldwin_Computer_Science_NEA
 
         
         //returns the resource corresponding to the state value
-        protected Image GetImageForState(int state)
+        public static Image GetImageForState(int state)
         {
             switch (state)
             {
@@ -96,6 +96,37 @@ namespace Esther_Baldwin_Computer_Science_NEA
         protected virtual bool ValidGrid(Grid grid)
         {
             throw new NotImplementedException();
+        }
+
+        //finds the square one step along the track from the start square, in whichever direction it connects
+        protected Square GetSquareAfterStart()
+        {
+            Square startsq = grid.GetSquare(xstart, ystart);
+            int nextx = 0;
+            int nexty = 0;
+
+            if (startsq.GetState().ConnectsLeft && xstart > 0)
+            {
+                nextx = xstart - 1;
+                nexty = ystart;
+            }
+            else if (startsq.GetState().ConnectsRight && xstart < size - 1)
+            {
+                nextx = xstart + 1;
+                nexty = ystart;
+            }
+            else if (startsq.GetState().ConnectsTop && ystart > 0)
+            {
+                nextx = xstart;
+                nexty = ystart - 1;
+            }
+            else if (startsq.GetState().ConnectsBottom && ystart < size - 1)
+            {
+                nextx = xstart;
+                nexty = ystart + 1;
+            }
+
+            return grid.GetSquare(nextx, nexty);
         }
     }
 

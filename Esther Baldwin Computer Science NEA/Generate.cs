@@ -1,20 +1,12 @@
-﻿using Microsoft.VisualBasic;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Configuration;
 using System.Data;
-using System.DirectoryServices.ActiveDirectory;
 using System.Drawing;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using static System.Windows.Forms.AxHost;
 
 namespace Esther_Baldwin_Computer_Science_NEA
 {
@@ -40,12 +32,7 @@ namespace Esther_Baldwin_Computer_Science_NEA
             problemview.Enabled = false;
         }
 
-        private void Generate_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        // on click of the generate button any previous searches stop 
+        // on click of the generate button any previous searches stop
         private void GenerateButton_Click(object sender, EventArgs e)
         {
 
@@ -390,15 +377,11 @@ namespace Esther_Baldwin_Computer_Science_NEA
                 if (visited[nextx, nexty])
                     continue;
 
-                int trackvalue = ReturnTrack(callingSquare, currentSquare, grid.GetSquare(nextx, nexty));
-
                 //checks it does not violate row and column constraints
                 if (!validsquare(nextx, nexty, xheaders, yheaders))
                     continue;
 
                 validNeighbours.Add(neighbour);
-
-
             }
 
             foreach (Tuple<int, int> neighbour in validNeighbours)
@@ -494,7 +477,7 @@ namespace Esther_Baldwin_Computer_Science_NEA
             int rowCount = grid.NoTracksRow(y);
 
             //checks that that is lower than the limits
-            return (colCount < colLimit && rowCount < colLimit);
+            return (colCount < colLimit && rowCount < rowLimit);
 
         }
         private void UpdateHeaders()
@@ -623,8 +606,6 @@ namespace Esther_Baldwin_Computer_Science_NEA
         private void dfs_Click_1(object sender, EventArgs e)
         {
             //initialises the dfs generate method
-            int nextsquarex = 0;
-            int nextsquarey = 0;
             cancelSearch = false;
             steps = 0;
 
@@ -633,7 +614,7 @@ namespace Esther_Baldwin_Computer_Science_NEA
             int[] yheaders = RandHeaders(size);
 
             // disable all buttons that do not need to be used
-           
+
             ConfirmPuzzle.Enabled = false;
             cancelSearch = false;
 
@@ -642,29 +623,8 @@ namespace Esther_Baldwin_Computer_Science_NEA
 
             Square startsq = grid.GetSquare(xstart, ystart);
 
-            //get next square looking at where the start square is and what it is connected to
-            if (startsq.GetState().ConnectsLeft && xstart > 0)
-            {
-                nextsquarex = xstart - 1;
-                nextsquarey = ystart;
-            }
-            else if (startsq.GetState().ConnectsRight && xstart < size - 1)
-            {
-                nextsquarex = xstart + 1;
-                nextsquarey = ystart;
-            }
-            else if (startsq.GetState().ConnectsTop && ystart > 0)
-            {
-                nextsquarex = xstart;
-                nextsquarey = ystart - 1;
-            }
-            else if (startsq.GetState().ConnectsBottom && ystart < size - 1)
-            {
-                nextsquarex = xstart;
-                nextsquarey = ystart + 1;
-            }
             //set the current square as the square one step away from the start
-            Square currentsq = grid.GetSquare(nextsquarex, nextsquarey);
+            Square currentsq = GetSquareAfterStart();
 
             // a boolean solved stores the result of the DFS to determine whether a result has been found from the recursion
             // DFS is run using the start square, current square and the generated headers
@@ -799,8 +759,6 @@ namespace Esther_Baldwin_Computer_Science_NEA
         private void RandomRecursion_Click_1(object sender, EventArgs e)
         {
             //initialises the random recursion
-            int nextsquarex = 0;
-            int nextsquarey = 0;
             cancelSearch = false;
             steps = 0;
 
@@ -813,28 +771,8 @@ namespace Esther_Baldwin_Computer_Science_NEA
 
             Square startsq = grid.GetSquare(xstart, ystart);
             //get next square looking at where the start square is and what it is connected to
-            if (startsq.GetState().ConnectsLeft && xstart > 0)
-            {
-                nextsquarex = xstart - 1;
-                nextsquarey = ystart;
-            }
-            else if (startsq.GetState().ConnectsRight && xstart < size - 1)
-            {
-                nextsquarex = xstart + 1;
-                nextsquarey = ystart;
-            }
-            else if (startsq.GetState().ConnectsTop && ystart > 0)
-            {
-                nextsquarex = xstart;
-                nextsquarey = ystart - 1;
-            }
-            else if (startsq.GetState().ConnectsBottom && ystart < size - 1)
-            {
-                nextsquarex = xstart;
-                nextsquarey = ystart + 1;
-            }
             //gets nextsquare from grid
-            Square currentsq = grid.GetSquare(nextsquarex, nextsquarey);
+            Square currentsq = GetSquareAfterStart();
             Random random = new Random();
 
             //stores the result of the random recursion to be able to tell if the puzzle has been solved or not
@@ -1006,7 +944,6 @@ namespace Esther_Baldwin_Computer_Science_NEA
             Button btn = (Button)sender;
             var (x, y) = ((int, int))btn.Tag;
             Square sq = grid2.GetSquare(x, y);
-            bool valid = false;
             int trackValue = sq.StateValue();
             int nextValue = trackValue + 1;
             if (nextValue > 7)
@@ -1058,7 +995,7 @@ namespace Esther_Baldwin_Computer_Science_NEA
                 }
                 for (int ycoord = 0; ycoord < size; ycoord++)
                 {
-                    if (Convert.ToInt32(rowHeaders[ycoord].Text) != grid2.NoTracksRow(ycoord))
+                    if (Convert.ToInt32(colHeaders[ycoord].Text) != grid2.NoTracksCol(ycoord))
                     {
                         validrowcol = false;
                     }

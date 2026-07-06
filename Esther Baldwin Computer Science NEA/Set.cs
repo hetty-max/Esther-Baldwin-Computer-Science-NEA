@@ -1,8 +1,4 @@
 using System;
-using System.Diagnostics;
-using System.Diagnostics.Eventing.Reader;
-using System.Drawing.Printing;
-using static System.Windows.Forms.AxHost;
 
 namespace Esther_Baldwin_Computer_Science_NEA
 {
@@ -20,11 +16,7 @@ namespace Esther_Baldwin_Computer_Science_NEA
             solveproblem.Visible = false;
             checksolution.Visible = false;
         }
-        private void difficultyDropDown_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-        // on click of the generate button any previous searches stop 
+        // on click of the generate button any previous searches stop
         private void generateGrid_Click(object sender, EventArgs e)
         {
             BuildGrid();
@@ -93,10 +85,6 @@ namespace Esther_Baldwin_Computer_Science_NEA
             // reset the headers
             GenerateHeaders(size);
             UpdateHeaders();
-        }
-        private void panelGrid_Paint(object sender, PaintEventArgs e)
-        {
-
         }
         //re calculates the number of tracks in each row and column
         private void GenerateHeaders(int size)
@@ -524,11 +512,6 @@ namespace Esther_Baldwin_Computer_Science_NEA
             { invalid.Visible = true; }
         }
 
-        private void invalid_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void problemview_Click(object sender, EventArgs e)
         {
             //create a new grid and new grid buttons for the new panel
@@ -650,7 +633,6 @@ namespace Esther_Baldwin_Computer_Science_NEA
             Button btn = (Button)sender;
             var (x, y) = ((int, int))btn.Tag;
             Square sq = grid2.GetSquare(x, y);
-            bool valid = false;
             int trackValue = sq.StateValue();
             int nextValue = trackValue + 1;
             if (nextValue > 7)
@@ -685,7 +667,7 @@ namespace Esther_Baldwin_Computer_Science_NEA
                 }
                 for (int ycoord = 0; ycoord < size; ycoord++)
                 {
-                    if (Convert.ToInt32(rowHeaders[ycoord].Text) != grid2.NoTracksRow(ycoord))
+                    if (Convert.ToInt32(colHeaders[ycoord].Text) != grid2.NoTracksCol(ycoord))
                     {
                         validrowcol = false;
                     }
@@ -737,11 +719,6 @@ namespace Esther_Baldwin_Computer_Science_NEA
                     }
                 }
             }
-        }
-
-        private void Set_Load(object sender, EventArgs e)
-        {
-
         }
     }
 

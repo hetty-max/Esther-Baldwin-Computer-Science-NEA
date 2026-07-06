@@ -1,6 +1,4 @@
-﻿using Microsoft.VisualBasic.ApplicationServices;
-
-namespace Esther_Baldwin_Computer_Science_NEA
+﻿namespace Esther_Baldwin_Computer_Science_NEA
 {
     public partial class Solve : BaseGridForm
     {
@@ -405,40 +403,27 @@ namespace Esther_Baldwin_Computer_Science_NEA
             //set steps to zero
             numsteps = 0;
             steps.Text = "Steps : 0";
-            int nextsquarex = 0;
-            int nextsquarey = 0;
 
-            //initialise visited grid 
+            //cache the row/column limits once instead of re-parsing header text on every recursive call
+            int[] colLimits = new int[size];
+            int[] rowLimits = new int[size];
+            for (int i = 0; i < size; i++)
+            {
+                int.TryParse(colHeaders[i].Text, out colLimits[i]);
+                int.TryParse(rowHeaders[i].Text, out rowLimits[i]);
+            }
+
+            //initialise visited grid
             bool[,] visited = new bool[size, size];
             visited[xstart, ystart] = true;
 
             Square startsq = grid.GetSquare(xstart, ystart);
 
             //get next square looking at where the start square is and what it is connected to
-            if (startsq.GetState().ConnectsLeft && xstart > 0)
-            {
-                nextsquarex = xstart - 1;
-                nextsquarey = ystart;
-            }
-            else if (startsq.GetState().ConnectsRight && xstart < size - 1)
-            {
-                nextsquarex = xstart + 1;
-                nextsquarey = ystart;
-            }
-            else if (startsq.GetState().ConnectsTop && ystart > 0)
-            {
-                nextsquarex = xstart;
-                nextsquarey = ystart - 1;
-            }
-            else if (startsq.GetState().ConnectsBottom && ystart < size - 1)
-            {
-                nextsquarex = xstart;
-                nextsquarey = ystart + 1;
-            }
-            Square currentsq = grid.GetSquare(nextsquarex, nextsquarey);
+            Square currentsq = GetSquareAfterStart();
 
             //set a boolean to store the result of a DFS if the end was reached
-            bool solved = DFS(grid, startsq, currentsq, visited);
+            bool solved = DFS(grid, startsq, currentsq, visited, colLimits, rowLimits);
             if(!solved && !cancelSearch)
             {
                 MessageBox.Show("No Solution could be found for this grid");
@@ -473,7 +458,6 @@ namespace Esther_Baldwin_Computer_Science_NEA
             // a queue of trainTracks
             //whether a solution has been found
             bool solved = false;
-            TrainPath solutionPath;
 
             //each item in the queue represents a possible path
             Queue<TrainPath> Q = new Queue<TrainPath>();
@@ -580,7 +564,7 @@ namespace Esther_Baldwin_Computer_Science_NEA
 
 
 
-        private bool DFS(Grid grid, Square callingSquare, Square currentSquare, bool[,] visited)
+        private bool DFS(Grid grid, Square callingSquare, Square currentSquare, bool[,] visited, int[] colLimits, int[] rowLimits)
         {
             // Depth First Search
             int x = currentSquare.x;
@@ -628,10 +612,8 @@ namespace Esther_Baldwin_Computer_Science_NEA
                 if (visited[nextx, nexty])
                     continue;
 
-                int trackvalue = ReturnTrack(callingSquare, currentSquare, grid.GetSquare(nextx, nexty));
-
                 //checks it does not violate row and column constraints
-                if (!validsquare(nextx, nexty, trackvalue))
+                if (!validsquare(nextx, nexty, colLimits, rowLimits))
                     continue;
 
                 validNeighbours.Add(neighbour);
@@ -648,22 +630,16 @@ namespace Esther_Baldwin_Computer_Science_NEA
             double LossFunctionRowCol(int i, int j)
             {
                 double lossValue = 0;
-                if (int.TryParse(colHeaders[i].Text, out int colLimit))
-                    lossValue += Math.Pow(colLimit - grid.NoTracksCol(i), 2);
-
-                if (int.TryParse(rowHeaders[j].Text, out int rowLimit))
-                    lossValue += Math.Pow(rowLimit - grid.NoTracksRow(j), 2);
+                lossValue += Math.Pow(colLimits[i] - grid.NoTracksCol(i), 2);
+                lossValue += Math.Pow(rowLimits[j] - grid.NoTracksRow(j), 2);
                 return lossValue;
             }
             //combine both loss functions
             double LossFunctionCombo(int i, int j)
             {
                 double lossValue = 0;
-                if (int.TryParse(colHeaders[i].Text, out int colLimit))
-                    lossValue += colLimit - grid.NoTracksCol(i);
-
-                if (int.TryParse(rowHeaders[j].Text, out int rowLimit))
-                    lossValue += rowLimit - grid.NoTracksRow(j);
+                lossValue += colLimits[i] - grid.NoTracksCol(i);
+                lossValue += rowLimits[j] - grid.NoTracksRow(j);
 
                 lossValue -= Math.Sqrt((xend - i) * (xend - i) + (yend - j) * (yend - j));
                 return lossValue;
@@ -708,7 +684,7 @@ namespace Esther_Baldwin_Computer_Science_NEA
                 PlaceTrack(x, y, trackvalue);
 
                 //if end is found in the next square return true
-                if (DFS(grid, currentSquare, nextSquare, visited))
+                if (DFS(grid, currentSquare, nextSquare, visited, colLimits, rowLimits))
                     return true;
             }
             //if no neighbours backtrack
@@ -721,16 +697,9 @@ namespace Esther_Baldwin_Computer_Science_NEA
         }
 
         //checks if the new square entered is valid
-        private bool validsquare(int x, int y, int prospectiveTrack = 1)
+        private bool validsquare(int x, int y, int[] colLimits, int[] rowLimits)
         {
             if (colHeaders == null || rowHeaders == null)
-                return false;
-            //gets the limit for the column and row
-
-            if (!int.TryParse(colHeaders[x].Text, out int colLimit))
-                return false;
-
-            if (!int.TryParse(rowHeaders[y].Text, out int rowLimit))
                 return false;
 
             // counts number of tracks in that row and column
@@ -738,7 +707,7 @@ namespace Esther_Baldwin_Computer_Science_NEA
             int rowCount = grid.NoTracksRow(y);
 
             //checks that that is lower than the limits
-            return (colCount < colLimit) && (rowCount < rowLimit);
+            return (colCount < colLimits[x]) && (rowCount < rowLimits[y]);
         }
 
 
@@ -871,17 +840,6 @@ namespace Esther_Baldwin_Computer_Science_NEA
             return solvedGrid;
         }
 
-        private void panelGrid_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void exit_Click(object sender, EventArgs e)
-        {
-            //exit
-            Application.Exit();
-        }
-
         private void Reset_Click(object sender, EventArgs e)
         {
             //reset grid back to its orignial position
@@ -915,32 +873,10 @@ namespace Esther_Baldwin_Computer_Science_NEA
             steps.Visible = true;
             numsteps = 0;
             steps.Text = "Steps : 0";
-            int nextsquarex = 0;
-            int nextsquarey = 0;
 
             //get next square looking at where the start square is and what it is connected to
             Square startsq = grid.GetSquare(xstart, ystart);
-            if (startsq.GetState().ConnectsLeft && xstart > 0)
-            {
-                nextsquarex = xstart - 1;
-                nextsquarey = ystart;
-            }
-            else if (startsq.GetState().ConnectsRight && xstart < size - 1)
-            {
-                nextsquarex = xstart + 1;
-                nextsquarey = ystart;
-            }
-            else if (startsq.GetState().ConnectsTop && ystart > 0)
-            {
-                nextsquarex = xstart;
-                nextsquarey = ystart - 1;
-            }
-            else if (startsq.GetState().ConnectsBottom && ystart < size - 1)
-            {
-                nextsquarex = xstart;
-                nextsquarey = ystart + 1;
-            }
-            Square currentsq = grid.GetSquare(nextsquarex, nextsquarey);
+            Square currentsq = GetSquareAfterStart();
 
             //set result of BFS to solved to identify if the puzzle has been solved or not
             bool solved = BFS(grid, startsq, currentsq);
