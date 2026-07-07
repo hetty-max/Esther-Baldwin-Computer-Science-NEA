@@ -24,4 +24,8 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Google.OrTools" Version="9.15.6755" />
+  </ItemGroup>
+
 </Project>
