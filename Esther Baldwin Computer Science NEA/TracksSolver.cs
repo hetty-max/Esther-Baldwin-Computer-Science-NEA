@@ -494,7 +494,7 @@ namespace Esther_Baldwin_Computer_Science_NEA
             private readonly int maxSolutions;
 
             public List<int[,]> Solutions { get; } = new List<int[,]>();
-
+            
             public SolutionCollector(int n_, BoolVar[,] north, BoolVar[,] east, BoolVar[,] south, BoolVar[,] west, int maxSolutions)
             {
                 N = n_;

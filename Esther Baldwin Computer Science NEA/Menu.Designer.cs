@@ -34,18 +34,18 @@ namespace Esther_Baldwin_Computer_Science_NEA
             titleLabel = new Label();
             Info = new Button();
             subtitleLabel = new Label();
-            trackStrip1 = new PictureBox();
-            trackStrip2 = new PictureBox();
-            trackStrip3 = new PictureBox();
             trackStrip4 = new PictureBox();
-            trackStrip5 = new PictureBox();
+            trackStrip3 = new PictureBox();
+            trackStrip2 = new PictureBox();
+            trackStrip1 = new PictureBox();
             trackStrip6 = new PictureBox();
-            ((System.ComponentModel.ISupportInitialize)trackStrip1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)trackStrip2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)trackStrip3).BeginInit();
+            trackStrip5 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)trackStrip4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)trackStrip5).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackStrip3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackStrip2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackStrip1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackStrip6).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackStrip5).BeginInit();
             SuspendLayout();
             // 
             // generate
@@ -57,7 +57,7 @@ namespace Esther_Baldwin_Computer_Science_NEA
             generate.FlatStyle = FlatStyle.Flat;
             generate.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
             generate.ForeColor = Color.FromArgb(44, 62, 80);
-            generate.Location = new Point(309, 208);
+            generate.Location = new Point(309, 228);
             generate.Name = "generate";
             generate.Size = new Size(260, 64);
             generate.TabIndex = 0;
@@ -74,7 +74,7 @@ namespace Esther_Baldwin_Computer_Science_NEA
             solve.FlatStyle = FlatStyle.Flat;
             solve.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
             solve.ForeColor = Color.FromArgb(44, 62, 80);
-            solve.Location = new Point(309, 280);
+            solve.Location = new Point(309, 300);
             solve.Name = "solve";
             solve.Size = new Size(260, 64);
             solve.TabIndex = 1;
@@ -91,7 +91,7 @@ namespace Esther_Baldwin_Computer_Science_NEA
             set.FlatStyle = FlatStyle.Flat;
             set.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
             set.ForeColor = Color.FromArgb(44, 62, 80);
-            set.Location = new Point(309, 350);
+            set.Location = new Point(309, 370);
             set.Name = "set";
             set.Size = new Size(260, 64);
             set.TabIndex = 2;
@@ -120,7 +120,7 @@ namespace Esther_Baldwin_Computer_Science_NEA
             Info.FlatStyle = FlatStyle.Flat;
             Info.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
             Info.ForeColor = Color.White;
-            Info.Location = new Point(309, 420);
+            Info.Location = new Point(309, 440);
             Info.Name = "Info";
             Info.Size = new Size(260, 64);
             Info.TabIndex = 4;
@@ -140,65 +140,66 @@ namespace Esther_Baldwin_Computer_Science_NEA
             subtitleLabel.TabIndex = 5;
             subtitleLabel.Text = "Created by Esther Baldwin";
             // 
-            // trackStrip1
-            // 
-            trackStrip1.Image = Properties.Resources.start;
-            trackStrip1.Location = new Point(254, 140);
-            trackStrip1.Name = "trackStrip1";
-            trackStrip1.Size = new Size(56, 56);
-            trackStrip1.SizeMode = PictureBoxSizeMode.StretchImage;
-            trackStrip1.TabIndex = 6;
-            trackStrip1.TabStop = false;
-            // 
-            // trackStrip2
-            // 
-            trackStrip2.Image = Properties.Resources.HorizontalTrack;
-            trackStrip2.Location = new Point(316, 140);
-            trackStrip2.Name = "trackStrip2";
-            trackStrip2.Size = new Size(56, 56);
-            trackStrip2.SizeMode = PictureBoxSizeMode.StretchImage;
-            trackStrip2.TabIndex = 7;
-            trackStrip2.TabStop = false;
-            // 
-            // trackStrip3
-            // 
-            trackStrip3.Image = Properties.Resources.HorizontalTrack;
-            trackStrip3.Location = new Point(378, 140);
-            trackStrip3.Name = "trackStrip3";
-            trackStrip3.Size = new Size(56, 56);
-            trackStrip3.SizeMode = PictureBoxSizeMode.StretchImage;
-            trackStrip3.TabIndex = 8;
-            trackStrip3.TabStop = false;
-            // 
             // trackStrip4
             // 
             trackStrip4.Image = Properties.Resources.HorizontalTrack;
-            trackStrip4.Location = new Point(440, 140);
+            trackStrip4.Location = new Point(442, 165);
             trackStrip4.Name = "trackStrip4";
             trackStrip4.Size = new Size(56, 56);
             trackStrip4.SizeMode = PictureBoxSizeMode.StretchImage;
             trackStrip4.TabIndex = 9;
             trackStrip4.TabStop = false;
             // 
-            // trackStrip5
+            // trackStrip3
             // 
-            trackStrip5.Image = Properties.Resources.HorizontalTrack;
-            trackStrip5.Location = new Point(502, 140);
-            trackStrip5.Name = "trackStrip5";
-            trackStrip5.Size = new Size(56, 56);
-            trackStrip5.SizeMode = PictureBoxSizeMode.StretchImage;
-            trackStrip5.TabIndex = 10;
-            trackStrip5.TabStop = false;
+            trackStrip3.Image = Properties.Resources.HorizontalTrack;
+            trackStrip3.Location = new Point(380, 165);
+            trackStrip3.Name = "trackStrip3";
+            trackStrip3.Size = new Size(56, 56);
+            trackStrip3.SizeMode = PictureBoxSizeMode.StretchImage;
+            trackStrip3.TabIndex = 8;
+            trackStrip3.TabStop = false;
+            // 
+            // trackStrip2
+            // 
+            trackStrip2.Image = Properties.Resources.HorizontalTrack;
+            trackStrip2.Location = new Point(318, 165);
+            trackStrip2.Name = "trackStrip2";
+            trackStrip2.Size = new Size(56, 56);
+            trackStrip2.SizeMode = PictureBoxSizeMode.StretchImage;
+            trackStrip2.TabIndex = 7;
+            trackStrip2.TabStop = false;
+            // 
+            // trackStrip1
+            // 
+            trackStrip1.Image = Properties.Resources.start;
+            trackStrip1.Location = new Point(256, 165);
+            trackStrip1.Name = "trackStrip1";
+            trackStrip1.Size = new Size(56, 56);
+            trackStrip1.SizeMode = PictureBoxSizeMode.StretchImage;
+            trackStrip1.TabIndex = 6;
+            trackStrip1.TabStop = false;
             // 
             // trackStrip6
             // 
             trackStrip6.Image = Properties.Resources.end;
-            trackStrip6.Location = new Point(564, 140);
+            trackStrip6.Location = new Point(566, 165);
             trackStrip6.Name = "trackStrip6";
             trackStrip6.Size = new Size(56, 56);
             trackStrip6.SizeMode = PictureBoxSizeMode.StretchImage;
             trackStrip6.TabIndex = 11;
             trackStrip6.TabStop = false;
+            // 
+            // trackStrip5
+            // 
+            trackStrip5.Image = Properties.Resources.HorizontalTrack;
+            trackStrip5.Location = new Point(504, 165);
+            trackStrip5.Name = "trackStrip5";
+            trackStrip5.Size = new Size(56, 56);
+            trackStrip5.SizeMode = PictureBoxSizeMode.StretchImage;
+            trackStrip5.TabIndex = 10;
+            trackStrip5.TabStop = false;
+            trackStrip5.Click += trackStrip5_Click;
             // 
             // Menu
             // 
@@ -220,12 +221,12 @@ namespace Esther_Baldwin_Computer_Science_NEA
             Controls.Add(generate);
             Name = "Menu";
             Text = "Train Tracks Puzzle";
-            ((System.ComponentModel.ISupportInitialize)trackStrip1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)trackStrip2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)trackStrip3).EndInit();
             ((System.ComponentModel.ISupportInitialize)trackStrip4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)trackStrip5).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackStrip3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackStrip2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackStrip1).EndInit();
             ((System.ComponentModel.ISupportInitialize)trackStrip6).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackStrip5).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -238,11 +239,11 @@ namespace Esther_Baldwin_Computer_Science_NEA
         private Label titleLabel;
         private Button Info;
         private Label subtitleLabel;
-        private PictureBox trackStrip1;
-        private PictureBox trackStrip2;
-        private PictureBox trackStrip3;
         private PictureBox trackStrip4;
-        private PictureBox trackStrip5;
+        private PictureBox trackStrip3;
+        private PictureBox trackStrip2;
+        private PictureBox trackStrip1;
         private PictureBox trackStrip6;
+        private PictureBox trackStrip5;
     }
 }

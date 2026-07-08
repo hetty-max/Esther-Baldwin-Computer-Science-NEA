@@ -23,6 +23,35 @@ namespace Esther_Baldwin_Computer_Science_NEA
             exgrid[0, 1] = 0;
             exgrid[1, 1] = 0;
         }
+
+        //draws a soft rounded blue border around each info card panel
+        private void Card_Paint(object sender, PaintEventArgs e) => UiTheme.PaintCardBorder(sender, e);
+
+        // the card heights needed to fit their text depend on the actual font metrics/DPI of the
+        // machine this runs on (WinForms' AutoScaleMode.Font scaling and AutoSize labels don't always
+        // agree on exactly how tall that text ends up), so rather than hard-code pixel heights that
+        // only fit on one machine, the cards are sized here to their real rendered content once the
+        // labels have laid themselves out - this can never clip regardless of DPI or font settings
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            const int cardPadding = 16;
+            const int cardGap = 20;
+
+            whatIsCard.Height = whatIsBody.Bottom + cardPadding;
+            howToCard.Height = howToBody.Bottom + cardPadding;
+
+            int topRowBottom = Math.Max(whatIsCard.Bottom, Math.Max(howToCard.Bottom, practiceCard.Bottom));
+
+            algorithmsCard.Top = topRowBottom + cardGap;
+            algorithmsCard.Height = algorithmsBody.Bottom + cardPadding;
+
+            exitButton.Top = algorithmsCard.Bottom + 30;
+
+            ClientSize = new Size(ClientSize.Width, exitButton.Bottom + 40);
+        }
+
         //advances the example square at (row, col) to its next state and updates its button image
         private void AdvanceExampleSquare(int row, int col, Button btn)
         {

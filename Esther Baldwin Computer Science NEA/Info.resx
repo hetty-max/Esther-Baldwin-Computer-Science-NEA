@@ -117,24 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="button2.Text" xml:space="preserve">
-    <value>Train Tracks puzzle is a logic based puzzle where the user tries to place a continous railway track from a start point to an end point.
-
-The grid is divided into rows and columns with constraints. These constraints indicate how many track pieces must appear in that row or column. 
-
-The completed track must form one continous path, connect start and end points, satisfy all row and column constraints and contain no disconnected tracks.
-</value>
-  </data>
-  <data name="button1.Text" xml:space="preserve">
-    <value>How to Solve the Puzzle:
-
-Click the grid to change the tracks use the small grid on the side to practice.
-
-1. Examine the number of tracks in each row and column
-2. Determine where tracks should be placed
-3. Continue until all constraints are satisfied and a continuous path connects the start and end points.
-
-Ensure all tracks are connected and there is no disconnected tracks.
-</value>
-  </data>
 </root>

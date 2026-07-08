@@ -15,7 +15,16 @@ namespace Esther_Baldwin_Computer_Science_NEA
         public Menu()
         {
             InitializeComponent();
+
+            //round the corners of the nav buttons so they read as cards, matching the info page
+            UiTheme.RoundCorners(generate, 14);
+            UiTheme.RoundCorners(solve, 14);
+            UiTheme.RoundCorners(set, 14);
+            UiTheme.RoundCorners(Info, 14);
         }
+
+        //draws the same rounded blue border used on the info page's cards around the track piece strip
+        private void Card_Paint(object sender, PaintEventArgs e) => UiTheme.PaintCardBorder(sender, e);
 
         private void set_Click(object sender, EventArgs e)
         {
@@ -39,6 +48,11 @@ namespace Esther_Baldwin_Computer_Science_NEA
         {
             Info info = new Info();
             info.Show();
+        }
+
+        private void trackStrip5_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
