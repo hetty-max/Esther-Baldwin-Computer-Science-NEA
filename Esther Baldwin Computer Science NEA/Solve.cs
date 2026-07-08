@@ -9,6 +9,13 @@
         private bool cancelSearch = false;
         private int numsteps = 0;
 
+        // the maximum number of distinct SAT solutions to enumerate; keeps an under-constrained
+        // puzzle (one with many valid layouts) from making the solver search forever
+        private const int MaxSatSolutions = 25;
+        private List<int[,]> satSolutions = new List<int[,]>();
+        private int satSolutionIndex = 0;
+        private bool satMoreSolutionsMayExist = false;
+
         public Solve()
         {
             InitializeComponent();
@@ -16,6 +23,9 @@
             solveprob.Enabled = false;
             bfs.Enabled = false;
             dfs.Enabled = false;
+            sat.Enabled = false;
+            nextSolution.Enabled = false;
+            solutionInfo.Visible = false;
             steps.Visible = false;
         }
                                                                                                                                                                                 
@@ -34,6 +44,12 @@
             firstclick = true;
             secondclick = true;
             solveprob.Enabled = true;
+
+            //a new grid invalidates any previously found SAT solutions
+            satSolutions = new List<int[,]>();
+            satSolutionIndex = 0;
+            nextSolution.Enabled = false;
+            solutionInfo.Visible = false;
 
             //size of grid determined by the difficulty selected in the difficulty index
             switch (difficultyDropDown.SelectedIndex)
@@ -333,6 +349,7 @@
             solveprob.Enabled = false;
             bfs.Enabled = true;
             dfs.Enabled = true;
+            sat.Enabled = true;
 
             //disable editing of all headers
             for (int i = 0; i < size; i++)
@@ -398,6 +415,9 @@
             cancelSearch = false;
             bfs.Enabled = false;
             dfs.Enabled = false;
+            sat.Enabled = false;
+            nextSolution.Enabled = false;
+            solutionInfo.Visible = false;
             steps.Visible = true;
 
             //set steps to zero
@@ -851,6 +871,11 @@
             generategrid.Enabled = true;
             bfs.Enabled = false;
             dfs.Enabled = false;
+            sat.Enabled = false;
+            nextSolution.Enabled = false;
+            solutionInfo.Visible = false;
+            satSolutions = new List<int[,]>();
+            satSolutionIndex = 0;
 
             for (int x = 0; x < size; x++)
             {
@@ -866,10 +891,13 @@
         private void bfs_Click_1(object sender, EventArgs e)
         {
             //enable solving
-            //set steps to 0 
+            //set steps to 0
             cancelSearch = false;
             bfs.Enabled = false;
             dfs.Enabled = false;
+            sat.Enabled = false;
+            nextSolution.Enabled = false;
+            solutionInfo.Visible = false;
             steps.Visible = true;
             numsteps = 0;
             steps.Text = "Steps : 0";
@@ -885,6 +913,107 @@
                 MessageBox.Show("No Solution could be found for this grid");
             }
         }
+
+        private void sat_Click(object sender, EventArgs e)
+        {
+            //solves the puzzle using google or-tools' CP-SAT solver instead of a hand rolled search
+            cancelSearch = false;
+            bfs.Enabled = false;
+            dfs.Enabled = false;
+            sat.Enabled = false;
+            nextSolution.Enabled = false;
+            solutionInfo.Visible = false;
+            steps.Visible = true;
+
+            //cache the row/column limits, same as dfs/bfs
+            int[] rowCounts = new int[size];
+            int[] colCounts = new int[size];
+            for (int i = 0; i < size; i++)
+            {
+                int.TryParse(rowHeaders[i].Text, out rowCounts[i]);
+                int.TryParse(colHeaders[i].Text, out colCounts[i]);
+            }
+
+            //the start/end squares already have a fixed track shape chosen by the player;
+            //TracksSolver needs to know it so it can pin those two cells
+            string startState = TrackShapeName(grid.GetSquare(xstart, ystart).StateValue());
+            string endState = TrackShapeName(grid.GetSquare(xend, yend).StateValue());
+
+            //TracksSolver works in (row, col) terms, so start/end are passed as (y, x)
+            long satSteps = TracksSolver.SolveTracks(
+                size, rowCounts, colCounts,
+                (ystart, xstart), (yend, xend),
+                startState, endState,
+                MaxSatSolutions,
+                out List<int[,]> solutions, out bool moreSolutionsMayExist);
+
+            numsteps = (int)Math.Min(satSteps, int.MaxValue);
+            steps.Text = "Steps: " + numsteps;
+
+            satSolutions = solutions;
+            satSolutionIndex = 0;
+            satMoreSolutionsMayExist = moreSolutionsMayExist;
+
+            if (satSolutions.Count == 0)
+            {
+                MessageBox.Show("No Solution could be found for this grid");
+                return;
+            }
+
+            ApplySatSolution(satSolutionIndex);
+
+            //only worth cycling if there is more than one distinct layout to show
+            nextSolution.Enabled = satSolutions.Count > 1;
+        }
+
+        private void nextSolution_Click(object sender, EventArgs e)
+        {
+            //cycles round to the next solution CP-SAT found for the current puzzle
+            if (satSolutions.Count == 0)
+                return;
+
+            satSolutionIndex = (satSolutionIndex + 1) % satSolutions.Count;
+            ApplySatSolution(satSolutionIndex);
+        }
+
+        //draws the given solved SAT layout onto the grid and updates the "Solution x of y" label
+        private void ApplySatSolution(int index)
+        {
+            int[,] solutionGrid = satSolutions[index];
+
+            //solutionGrid is indexed [x, y] to line up with PlaceTrack/grid coordinates
+            for (int x = 0; x < size; x++)
+            {
+                for (int y = 0; y < size; y++)
+                {
+                    if ((x == xstart && y == ystart) || (x == xend && y == yend))
+                        continue;
+
+                    PlaceTrack(x, y, solutionGrid[x, y]);
+                }
+            }
+
+            //same green outline DFS/BFS use to mark a solved grid: checks the row/col counts
+            //match then highlights every square's border
+            validateGrid();
+            gridButtons[xend, yend].BackColor = Color.LightGreen;
+
+            solutionInfo.Visible = true;
+            string suffix = satMoreSolutionsMayExist ? "+" : "";
+            solutionInfo.Text = $"Solution {index + 1} of {satSolutions.Count}{suffix}";
+        }
+
+        //converts a square's state value (1-6) into the direction-pair name TracksSolver expects
+        private static string TrackShapeName(int stateValue) => stateValue switch
+        {
+            1 => "NS",
+            2 => "WE",
+            3 => "NW",
+            4 => "NE",
+            5 => "WS",
+            6 => "SE",
+            _ => "NS"
+        };
 
         private void Exit(object sender, EventArgs e)
         {

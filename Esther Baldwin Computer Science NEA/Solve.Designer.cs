@@ -31,6 +31,9 @@
             difficultyDropDown = new ComboBox();
             bfs = new Button();
             dfs = new Button();
+            sat = new Button();
+            nextSolution = new Button();
+            solutionInfo = new TextBox();
             generategrid = new Button();
             solveprob = new Button();
             steps = new Button();
@@ -69,7 +72,37 @@
             dfs.Text = "Using DFS";
             dfs.UseVisualStyleBackColor = true;
             dfs.Click += dfs_Click;
-            // 
+            //
+            // sat
+            //
+            sat.Location = new Point(818, 200);
+            sat.Name = "sat";
+            sat.Size = new Size(182, 57);
+            sat.TabIndex = 15;
+            sat.Text = "Using SAT";
+            sat.UseVisualStyleBackColor = true;
+            sat.Click += sat_Click;
+            //
+            // nextSolution
+            //
+            nextSolution.Location = new Point(818, 263);
+            nextSolution.Name = "nextSolution";
+            nextSolution.Size = new Size(182, 57);
+            nextSolution.TabIndex = 16;
+            nextSolution.Text = "Next Solution";
+            nextSolution.UseVisualStyleBackColor = true;
+            nextSolution.Click += nextSolution_Click;
+            //
+            // solutionInfo
+            //
+            solutionInfo.Location = new Point(630, 263);
+            solutionInfo.Name = "solutionInfo";
+            solutionInfo.ReadOnly = true;
+            solutionInfo.Size = new Size(182, 31);
+            solutionInfo.TabIndex = 17;
+            solutionInfo.TextAlign = HorizontalAlignment.Center;
+            solutionInfo.Visible = false;
+            //
             // generategrid
             // 
             generategrid.Location = new Point(630, 74);
@@ -157,6 +190,9 @@
             Controls.Add(steps);
             Controls.Add(solveprob);
             Controls.Add(generategrid);
+            Controls.Add(solutionInfo);
+            Controls.Add(nextSolution);
+            Controls.Add(sat);
             Controls.Add(dfs);
             Controls.Add(bfs);
             Controls.Add(difficultyDropDown);
@@ -171,6 +207,9 @@
         private ComboBox difficultyDropDown;
         private Button bfs;
         private Button dfs;
+        private Button sat;
+        private Button nextSolution;
+        private TextBox solutionInfo;
         private Button generategrid;
         private Button solveprob;
         private Button steps;
