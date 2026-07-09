@@ -2,6 +2,9 @@ For my Computer Science A-Level NEA I created a C# WinForms application to gener
 A train tracks puzzle is a newspaper logic puzzle in which a single track must be laid from village A to village B using only straight and corner pieces. 
 The number of track segments in each row and column must satisfy the row and column constraints of that row or column header.
 
+During my project I was not allowed to use any AI tools to enhance my project however, once it was over I used AI to enhance what I had done already. I used it to add the google SAT solver to solve the puzzles which I had wanted to do in my original project but run out of time.
+
+This is my reflection on the original project:
 
 I chose this project as it allowed me to use and grow my skills in areas I had not developed as much before.
 Specifically, I found graph traversal, constraint satisfaction and UI design interesting.
