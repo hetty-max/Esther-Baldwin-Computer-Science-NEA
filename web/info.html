@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How to Play - Train Tracks Puzzle</title>
+  <link rel="icon" href="data:," />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="page-header">
+    <a class="back-link" href="index.html">&larr; Menu</a>
+    <h1>HOW TO PLAY</h1>
+  </header>
+  <p style="text-align:center;color:var(--muted);font-style:italic;">Everything you need to know about Train Tracks</p>
+
+  <div class="info-cards">
+    <div class="card">
+      <h2>What is it?</h2>
+      <ul>
+        <li>Train Tracks is a logic puzzle: lay one continuous railway track from the start tile to the end tile.</li>
+        <li>Each row and column has a number showing exactly how many track pieces it must contain.</li>
+        <li>The finished track must be a single connected path with no dead ends or stray pieces.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>How to Solve</h2>
+      <ol>
+        <li>Check how many tracks each row and column needs.</li>
+        <li>Place pieces to satisfy those counts.</li>
+        <li>Keep going until a single path connects start to end.</li>
+      </ol>
+      <p>Every piece should connect to another - no dead ends.</p>
+    </div>
+
+    <div class="card">
+      <h2>Try it Yourself</h2>
+      <p>Click a tile to cycle through its track piece.</p>
+      <div id="demoGrid" class="demo-grid"></div>
+    </div>
+
+    <div class="card full">
+      <h2>Solving Algorithms</h2>
+      <p>Head to the Solve screen to compare two approaches side by side: Depth First Search (with three optional neighbour-ordering heuristics) and Breadth First Search. Each one shows its search process directly on the grid as it runs, with a live step counter.</p>
+    </div>
+  </div>
+
+  <p style="text-align:center;margin:2rem 0;">
+    <a class="btn btn-strong" href="index.html" style="text-decoration:none;display:inline-block;">Back to Menu</a>
+  </p>
+
+  <script type="module" src="js/info.js"></script>
+</body>
+</html>

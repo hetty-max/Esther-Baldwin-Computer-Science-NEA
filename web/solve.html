@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Solve - Train Tracks Puzzle</title>
+  <link rel="icon" href="data:," />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="page-header">
+    <a class="back-link" href="index.html">&larr; Menu</a>
+    <h1>Solve</h1>
+  </header>
+
+  <main>
+    <section class="controls card">
+      <h2>1. Set up</h2>
+      <div class="field">
+        <label for="difficulty">Difficulty</label>
+        <select id="difficulty">
+          <option value="6">Easy (6x6)</option>
+          <option value="8" selected>Medium (8x8)</option>
+          <option value="10">Hard (10x10)</option>
+        </select>
+      </div>
+      <button id="newGridBtn" class="btn btn-primary">New Grid</button>
+
+      <h2>2. Author the puzzle</h2>
+      <p class="status">Place Start/End on the edge, then optionally sketch a layout. Type the row &amp; column targets you want the solvers to satisfy, then lock the grid.</p>
+      <button id="lockBtn" class="btn btn-primary" disabled>Lock Grid</button>
+
+      <h2>3. Solve</h2>
+      <div class="field">
+        <label for="heuristic">DFS neighbour ordering</label>
+        <select id="heuristic">
+          <option value="none">None (plain backtracking)</option>
+          <option value="distance">Distance to end</option>
+          <option value="rowcol">Row &amp; column slack</option>
+          <option value="combo">Combined</option>
+        </select>
+      </div>
+      <div class="btn-row">
+        <button id="dfsBtn" class="btn" disabled>DFS</button>
+        <button id="bfsBtn" class="btn" disabled>BFS</button>
+      </div>
+      <div id="steps" class="status"></div>
+      <div id="status" class="status"></div>
+    </section>
+
+    <section class="grid-card card">
+      <div id="grid"></div>
+    </section>
+  </main>
+
+  <script type="module" src="js/solve.js"></script>
+</body>
+</html>
