@@ -57,7 +57,7 @@ namespace Esther_Baldwin_Computer_Science_NEA
             generate.FlatStyle = FlatStyle.Flat;
             generate.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
             generate.ForeColor = Color.FromArgb(44, 62, 80);
-            generate.Location = new Point(309, 228);
+            generate.Location = new Point(309, 212);
             generate.Name = "generate";
             generate.Size = new Size(260, 64);
             generate.TabIndex = 0;
@@ -74,7 +74,7 @@ namespace Esther_Baldwin_Computer_Science_NEA
             solve.FlatStyle = FlatStyle.Flat;
             solve.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
             solve.ForeColor = Color.FromArgb(44, 62, 80);
-            solve.Location = new Point(309, 300);
+            solve.Location = new Point(309, 284);
             solve.Name = "solve";
             solve.Size = new Size(260, 64);
             solve.TabIndex = 1;
@@ -91,7 +91,7 @@ namespace Esther_Baldwin_Computer_Science_NEA
             set.FlatStyle = FlatStyle.Flat;
             set.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
             set.ForeColor = Color.FromArgb(44, 62, 80);
-            set.Location = new Point(309, 370);
+            set.Location = new Point(309, 354);
             set.Name = "set";
             set.Size = new Size(260, 64);
             set.TabIndex = 2;
@@ -120,7 +120,7 @@ namespace Esther_Baldwin_Computer_Science_NEA
             Info.FlatStyle = FlatStyle.Flat;
             Info.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
             Info.ForeColor = Color.White;
-            Info.Location = new Point(309, 440);
+            Info.Location = new Point(309, 424);
             Info.Name = "Info";
             Info.Size = new Size(260, 64);
             Info.TabIndex = 4;
@@ -143,7 +143,7 @@ namespace Esther_Baldwin_Computer_Science_NEA
             // trackStrip4
             // 
             trackStrip4.Image = Properties.Resources.HorizontalTrack;
-            trackStrip4.Location = new Point(442, 165);
+            trackStrip4.Location = new Point(442, 143);
             trackStrip4.Name = "trackStrip4";
             trackStrip4.Size = new Size(56, 56);
             trackStrip4.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -153,7 +153,7 @@ namespace Esther_Baldwin_Computer_Science_NEA
             // trackStrip3
             // 
             trackStrip3.Image = Properties.Resources.HorizontalTrack;
-            trackStrip3.Location = new Point(380, 165);
+            trackStrip3.Location = new Point(380, 143);
             trackStrip3.Name = "trackStrip3";
             trackStrip3.Size = new Size(56, 56);
             trackStrip3.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -163,7 +163,7 @@ namespace Esther_Baldwin_Computer_Science_NEA
             // trackStrip2
             // 
             trackStrip2.Image = Properties.Resources.HorizontalTrack;
-            trackStrip2.Location = new Point(318, 165);
+            trackStrip2.Location = new Point(318, 143);
             trackStrip2.Name = "trackStrip2";
             trackStrip2.Size = new Size(56, 56);
             trackStrip2.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -173,7 +173,7 @@ namespace Esther_Baldwin_Computer_Science_NEA
             // trackStrip1
             // 
             trackStrip1.Image = Properties.Resources.start;
-            trackStrip1.Location = new Point(256, 165);
+            trackStrip1.Location = new Point(256, 143);
             trackStrip1.Name = "trackStrip1";
             trackStrip1.Size = new Size(56, 56);
             trackStrip1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -183,7 +183,7 @@ namespace Esther_Baldwin_Computer_Science_NEA
             // trackStrip6
             // 
             trackStrip6.Image = Properties.Resources.end;
-            trackStrip6.Location = new Point(566, 165);
+            trackStrip6.Location = new Point(566, 143);
             trackStrip6.Name = "trackStrip6";
             trackStrip6.Size = new Size(56, 56);
             trackStrip6.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -193,7 +193,7 @@ namespace Esther_Baldwin_Computer_Science_NEA
             // trackStrip5
             // 
             trackStrip5.Image = Properties.Resources.HorizontalTrack;
-            trackStrip5.Location = new Point(504, 165);
+            trackStrip5.Location = new Point(504, 143);
             trackStrip5.Name = "trackStrip5";
             trackStrip5.Size = new Size(56, 56);
             trackStrip5.SizeMode = PictureBoxSizeMode.StretchImage;
